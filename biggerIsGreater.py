@@ -24,17 +24,37 @@
 
 def biggerIsGreater(w):
     w_list = list(w)
+    # Need to create a list of all combinations that are greater
+    # Then sort through those to find the smallest, that is greater than initial word
+    # Need to get more permutations, rather than just swapping with adjacent characters
+    greater = []
     for i in reversed(range(0,len(w_list))):
         word = w_list.copy()
         word[i] = w_list[i-1]
         word[i-1] = w_list[i]
         word = ''.join(word)
         if word > w:
-            print(word)
-            return
+            greater.append(word)
         elif i == 1:
             print('no answer')
             return
+    # Implement a bubble sort
+    def bubble_sort(array):
+        n = len(array)
+        for i in range(n):
+            already_sorted = True
+            for j in range(n - i - 1):
+                if array[j] > array[j + 1]:
+                    array[j], array[j+1] = array[j+1], array[j]
+                    already_sorted = False
+            if already_sorted:
+                break
+        return array
+    greater = bubble_sort(greater)
+    print(greater[0])
+    return greater[0]
+
+
 
 biggerIsGreater('ab')
 biggerIsGreater('bb')
