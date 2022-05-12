@@ -24,35 +24,59 @@
 
 def biggerIsGreater(w):
     w_list = list(w)
+
+w = 'word'
+test_arr = []
+w_list = list(w)
+def permute(arr ,a, l, r):
+    if l == r:
+        arr.append(a) # Append to a list to get all total permutations
+    else:
+        for i in range(l, r):
+            a[l], a[i] = a[i], a[l]
+            permute(arr, a, l + 1, r)
+            a[l], a[i] = a[i], a[l]  # backtrack
+    return arr
+perms = permute(test_arr,w_list,0,len(w_list))
+
     # Need to create a list of all combinations that are greater
     # Then sort through those to find the smallest, that is greater than initial word
     # Need to get more permutations, rather than just swapping with adjacent characters
-    greater = []
-    for i in reversed(range(0,len(w_list))):
-        word = w_list.copy()
-        word[i] = w_list[i-1]
-        word[i-1] = w_list[i]
-        word = ''.join(word)
-        if word > w:
-            greater.append(word)
-        elif i == 1:
-            print('no answer')
-            return
+    greater = None
+    print(perms)
+    # for perm in perms:
+    #     if perm is not None:
+    #         if perm > greater:
+    #             greater = perm
+    # if greater:
+    #     print(greater)
+    #     return greater
+    # else:
+    #     print('no answer')
+    #     return 'no answer'
+    # for i in (range(0,len(w_list))):
+    #     count = i + 1
+    #     while count < len(w_list):
+    #         word = w_list.copy()
+    #         word[i] , word[count] = word[count], word[i]
+    #         word = ''.join(word)
+    #         if word > w:
+    #             # Append to the 'greater' list
+    #             if greater == None:
+    #                 greater = word
+    #             elif word < greater:
+    #                 greater = word
+    #         break
+    #         count +=1
+    if greater:
+        print(greater)
+        return greater
+    else:
+        print('no answer')
+        return 'no answer'
     # Implement a bubble sort
-    def bubble_sort(array):
-        n = len(array)
-        for i in range(n):
-            already_sorted = True
-            for j in range(n - i - 1):
-                if array[j] > array[j + 1]:
-                    array[j], array[j+1] = array[j+1], array[j]
-                    already_sorted = False
-            if already_sorted:
-                break
-        return array
-    greater = bubble_sort(greater)
-    print(greater[0])
-    return greater[0]
+
+
 
 
 
