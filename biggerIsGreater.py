@@ -23,59 +23,26 @@
 # - string: the smallest lexicographically higher string possible or no answer
 
 def biggerIsGreater(w):
-    w_list = list(w)
-
-w = 'word'
-test_arr = []
-w_list = list(w)
-def permute(arr ,a, l, r):
-    if l == r:
-        arr.append(a) # Append to a list to get all total permutations
-    else:
-        for i in range(l, r):
-            a[l], a[i] = a[i], a[l]
-            permute(arr, a, l + 1, r)
-            a[l], a[i] = a[i], a[l]  # backtrack
-    return arr
-perms = permute(test_arr,w_list,0,len(w_list))
-
-    # Need to create a list of all combinations that are greater
-    # Then sort through those to find the smallest, that is greater than initial word
-    # Need to get more permutations, rather than just swapping with adjacent characters
-    greater = None
-    print(perms)
-    # for perm in perms:
-    #     if perm is not None:
-    #         if perm > greater:
-    #             greater = perm
-    # if greater:
-    #     print(greater)
-    #     return greater
-    # else:
-    #     print('no answer')
-    #     return 'no answer'
-    # for i in (range(0,len(w_list))):
-    #     count = i + 1
-    #     while count < len(w_list):
-    #         word = w_list.copy()
-    #         word[i] , word[count] = word[count], word[i]
-    #         word = ''.join(word)
-    #         if word > w:
-    #             # Append to the 'greater' list
-    #             if greater == None:
-    #                 greater = word
-    #             elif word < greater:
-    #                 greater = word
-    #         break
-    #         count +=1
-    if greater:
-        print(greater)
-        return greater
-    else:
-        print('no answer')
-        return 'no answer'
-    # Implement a bubble sort
-
+    # Write your code here
+    def swap(w, x):
+        w_list = list(w)
+        # w is the string
+        # x is the starting point
+        if w_list[x] > w_list[x - 1]:
+            w_list[x], w_list[x - 1] = w_list[x - 1], w_list[x]
+            w = ''.join(w_list)
+            x += 1
+            if x > len(w):
+                print(w)
+                return w
+            swap(w, x)
+        elif w_list[x] <= w_list[x - 1]:
+            x -= 1
+            if x < 0:
+                print('no answer')
+                return 'no answer'
+            swap(w, x)
+    swap(w,len(w))
 
 
 
