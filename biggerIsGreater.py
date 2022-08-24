@@ -32,17 +32,17 @@ def biggerIsGreater(w):
             w_list[x], w_list[x - 1] = w_list[x - 1], w_list[x]
             w = ''.join(w_list)
             x += 1
-            if x > len(w):
+            if x >= len(w):
                 print(w)
                 return w
             swap(w, x)
         elif w_list[x] <= w_list[x - 1]:
             x -= 1
-            if x < 0:
+            if x == 0:
                 print('no answer')
                 return 'no answer'
             swap(w, x)
-    swap(w,len(w))
+    swap(w,len(w)-1)
 
 
 

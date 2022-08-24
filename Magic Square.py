@@ -4,7 +4,12 @@ def formMagicSquare(s):
     # print(total_cost)
     # Find missing values
     # A magic square in a 3x3 arrangement can only contain the following sets
-    magic = [[2, 6, 7], [1, 5, 9], [3, 4, 8], [1, 6, 8], [3, 5, 7], [2, 4, 9], [2, 5, 8], [4, 5, 6]]
+    magic = [[8,3,4],]
+    magic_copy = magic.copy()
+    # Best way is probably to calculate all possible magic squares and compare the minimum absolute difference
+    magic_squares = []
+
+
 
     def get_matrix_possibilities(s):
         "Return all possible horizontal, vertical, and diagonal. Sort final arrays before returning/"
@@ -35,72 +40,83 @@ def formMagicSquare(s):
 
     possibilities = get_matrix_possibilities(s)
     print(possibilities)
-    def calc_difference(x,y):
-        # Calculate the absolute value of difference between sorted lists
-        total_diff = 0
-        for i in range(0, len(x)):
-            diff = x[i] - y[i]
-            # Get absolute value
-            diff = math.sqrt(diff*diff)
-            total_diff += diff
-        return total_diff
-
-    while len(possibilities)>0:
-        ref_map = {}
-        cost_map = {}
-        match_map = {}
-        for combo in possibilities:
-            min_diff = 100
-            best_match = None
-            for x in magic:
-                diff = calc_difference(combo, x)
-                if diff == 0:
-                    min_diff = diff
-                    # Remove perfect matches so other combos don't try to match to them
-                    possibilities.remove(combo)
-                    magic.remove(x)
-                    break
-                elif diff < min_diff:
-                    min_diff = diff
-                    best_match = x
-            if min_diff >0:
-                cost_map[combo] = min_diff
-                match_map[combo] = best_match
-                print(f"combo: {combo}")
-                print(f"match: {best_match}")
-                print(f"diff: {min_diff}")
-        # At the end of the loop, go through the values and find the smallest change we can make
-        min_change = min(cost_map, key=cost_map.get)
-        possibilities.remove(min_change)
-        magic.remove(match_map[min_change])
-        total_cost += cost_map[min_change]
-    print(f"total cost:{total_cost}")
-
-
-
-
-    # def missing(s):
-    #     vals = []
+    # def calc_difference(x,y):
+    #     # Calculate the absolute value of difference between sorted lists
+    #     total_diff = 0
+    #     for i in range(0, len(x)):
+    #         diff = x[i] - y[i]
+    #         # Get absolute value
+    #         diff = math.sqrt(diff*diff)
+    #         total_diff += diff
+    #     return total_diff
+    # def adjust_s(s, current, future):
+    #     "find the current array in s, then change to the future array"
     #     for i in s:
-    #         for j in i:
-    #             vals.append(j)
-    #     missing = list(set(range(1, 10)) - set(vals))
-    #     return missing
+    #         for j in s:
     #
-    # missing = missing(s)
-    # print(missing)
     #
-    # # Get the sum of all values
-    # def total(s):
-    #     total_val = 0
-    #     for i in s:
-    #         for j in i:
-    #             total_val += j
-    #     return total_val
+    # while len(possibilities)>0:
+    #     next_moves = []
+    #     for combo in possibilities:
+    #         min_diff = 100
+    #         best_match = None
+    #         for x in magic_copy:
+    #             diff = calc_difference(combo, x)
+    #             if diff == 0:
+    #                 min_diff = diff
+    #                 # Remove perfect matches so other combos don't try to match to them
+    #                 possibilities.remove(combo)
+    #                 magic_copy.remove(x)
+    #                 break
+    #             elif diff < min_diff:
+    #                 min_diff = diff
+    #                 best_match = x
+    #         if min_diff >0:
+    #             next_moves.append([min_diff, combo, best_match])
+    #             print(f"combo: {combo}")
+    #             print(f"match: {best_match}")
+    #             print(f"diff: {min_diff}")
+    #     # At the end of the loop, go through the values and find the smallest change we can make
+    #     # small_move looks like this: [cost, combo, best_match]
+    #     small_move = [100]
+    #     for move in next_moves:
+    #         if move[0] < small_move[0]:
+    #             small_move = move
     #
-    # total_val = total(s)
-    # print(total_val)
-    # get
+    #     possibilities.remove(small_move[1])
+    #     magic_copy.remove(small_move[2])
+    #     # Need to update 's' then calculate again
+    #
+    #     total_cost += small_move[0]
+    #     magic_copy = magic.copy()
+    #     possibilities = get_matrix_possibilities(s)
+    # print(f"total cost:{total_cost}")
+    #
+    #
+    #
+    #
+    # # def missing(s):
+    # #     vals = []
+    # #     for i in s:
+    # #         for j in i:
+    # #             vals.append(j)
+    # #     missing = list(set(range(1, 10)) - set(vals))
+    # #     return missing
+    # #
+    # # missing = missing(s)
+    # # print(missing)
+    # #
+    # # # Get the sum of all values
+    # # def total(s):
+    # #     total_val = 0
+    # #     for i in s:
+    # #         for j in i:
+    # #             total_val += j
+    # #     return total_val
+    # #
+    # # total_val = total(s)
+    # # print(total_val)
+    # # get
 
 
 s1 = [[4, 8, 2], [4, 5, 7], [6, 1, 6]]
