@@ -1,9 +1,8 @@
 import math
 import numpy as np
 def formMagicSquare(s):
-    total_cost = 0
-    # print(total_cost)
-    # Find missing values
+    s = np.array(s)
+    total_costs = []
     # A magic square in a 3x3 arrangement can only contain the following sets
     magic = [[8,3,4],[1,5,9],[6,4,2]]
     magic = np.array(magic)
@@ -29,8 +28,17 @@ def formMagicSquare(s):
         magic = flip(magic)
         magic_squares.append(magic)
         magic_squares.append(magic.T)
-    print(magic_squares)
-    print(len(magic_squares))
+
+    for square in magic_squares:
+        cost = 0
+        for i in range(0,3):
+            for j in range(0,3):
+                cost += abs(s[i][j]-square[i][j])
+        total_costs.append(cost)
+    print(min(total_costs))
+    return min(total_costs)
+
+
 
 
 
