@@ -21,21 +21,28 @@ def formMagicSquare(s):
         s[0] = left_col
         return s
     def transpose(s):
-        x = s.copy()
-        s[0][1], s[1][0] = x[1][0], x[0][1]
-        s[0][2], s[2][0] = x[2][0], x[0][2]
-        s[1][2], s[2][1] = x[2][1], x[1][2]
-        return s
+        x = [[0,0,0],[0,5,0],[0,0,0]]
+        for i in range(0,3):
+            for j in range(0,3):
+                x[i][j] = s[i][j]
+        x[0][1], x[1][0] = s[1][0], s[0][1]
+        x[1][2], x[2][1] = s[2][1], s[1][2]
+        x[0][2], x[2][0] = s[2][0], s[0][2]
+        return x
 
     for _ in range(3):
         magic = flip(magic)
-        print(magic)
-        magic_squares.append(magic)
+        magic_squares.append(list(magic))
+
     transposed = []
     for square in magic_squares:
-        transposed.append(transpose(square))
+        magic_transposed = transpose(square)
+        transposed.append(list(magic_transposed))
+    # for x in transposed:
+    #     print(x)
     magic_squares = magic_squares + transposed
     for square in magic_squares:
+        print(square)
         cost = 0
         for i in range(0,3):
             for j in range(0,3):
