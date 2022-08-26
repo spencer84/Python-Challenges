@@ -1,13 +1,10 @@
 import math
-import numpy as np
 def formMagicSquare(s):
-    s = np.array(s)
     total_costs = []
     # A magic square in a 3x3 arrangement can only contain the following sets
     magic = [[8,3,4],[1,5,9],[6,7,2]]
-    magic = np.array(magic)
     # Best way is probably to calculate all possible magic squares and compare the minimum absolute difference
-    magic_squares = [magic, magic.T]
+    magic_squares = [magic]
     def flip(s):
         "Rotate a 3x3 matrix 90 degrees clockwise"
         top_row = [s[0][0],s[0][1],s[0][2]]
@@ -24,11 +21,19 @@ def formMagicSquare(s):
         # left col becomes top row
         s[0] = left_col
         return s
-
+    def transpose(s):
+        x = s.copy()
+        s[0][1], s[1][0] = x[1][0], x[0][1]
+        s[0][2], s[2][0] = x[2][0], x[0][2]
+        s[1][2], s[2][1] = x[2][1], x[1][2]
+        return s
+    magic_squares.append(transpose(magic))
     for _ in range(3):
         magic = flip(magic)
+        magic_transposed = transpose(magic)
         magic_squares.append(magic)
-        magic_squares.append(magic.T)
+        magic_squares.append(magic_transposed)
+        #magic_squares.append(magic.T)
 
     for square in magic_squares:
         cost = 0
