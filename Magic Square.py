@@ -21,34 +21,24 @@ def formMagicSquare(s):
         # left col becomes top row
         s[0] = left_col
         return s
-    def transpose(s):
-        x = list(s)
-        x[0][1], x[1][0] = s[1][0], s[0][1]
-        x[1][2], x[2][1] = s[2][1], s[1][2]
-        x[0][2], x[2][0] = s[2][0], s[0][2]
-        return x
-    print(magic_squares)
+    def get_cost(square):
+        cost = 0
+        for i in range(0, 3):
+            for j in range(0, 3):
+                cost += abs(s[i][j] - square[i][j])
+        return cost
+    total_costs.append(get_cost(magic))
+    magic_transposed = [[row[i] for row in magic] for i in range(len(magic[0]))]
+    total_costs.append(get_cost(magic_transposed))
+    print(magic)
     for _ in range(3):
         magic = flip(magic)
-        magic_squares.append(magic.copy())
-        print(magic_squares)
-    print(magic_squares)
+        total_costs.append(get_cost(magic))
+        print(magic)
+        magic_transposed = [[row[i] for row in magic] for i in range(len(magic[0]))]
+        total_costs.append(get_cost(magic_transposed))
+        print(magic_transposed)
 
-    transposed = []
-    for square in magic_squares:
-        #print(square)
-        magic_transposed = transpose(square)
-        transposed.append(list(magic_transposed))
-    # for x in transposed:
-    #     print(x)
-    magic_squares = magic_squares + transposed
-    for square in magic_squares:
-        #print(square)
-        cost = 0
-        for i in range(0,3):
-            for j in range(0,3):
-                cost += abs(s[i][j]-square[i][j])
-        total_costs.append(cost)
     print(min(total_costs))
     return min(total_costs)
 
