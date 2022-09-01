@@ -17,26 +17,28 @@ def nonDivisibleSubset(k, s):
                     pass
         return all_non_divisible
 
-    running = True
-    while running:
+    max_len = None
+    while max_len is None:
         for i in subsets:
             if all_non_divisible(i, k):
-                print(len(i))
-                running = False
-                return len(i)
+                max_len = len(i)
             else:
                 pass
+        if max_len is None:
         # If we haven't broken out of the loop, break each subset into smaller subsets
-        for i in subsets:
-            print(i)
-            for j in range(0, len(i)):
-                new_arr = i.copy()
-                new_arr.remove(new_arr[j])
-                new_arr = sorted(new_arr)
-                if new_arr not in subsets:
-                    subsets.append(new_arr)
-        subsets.remove(i)
-        print(subsets)
+            new_subs = []
+            for i in subsets:
+                for j in range(0, len(i)):
+                    new_arr = i.copy()
+                    new_arr.remove(new_arr[j])
+                    new_arr = sorted(new_arr)
+                    if new_arr not in new_subs:
+                        new_subs.append(new_arr)
+            subsets = new_subs
+        else:
+            break
+    print(max_len)
+    return max_len
 
 
     # def go_deeper(subsets):
@@ -85,4 +87,4 @@ k0 = 3
 s1 = [278, 576, 496, 727, 410, 124, 338, 149, 209, 702, 282, 718, 771, 575, 436]
 k1 = 7
 if __name__ == "__main__":
-    nonDivisibleSubset(k0, s0)
+    nonDivisibleSubset(k1, s1)
