@@ -1,49 +1,17 @@
 def nonDivisibleSubset(k, s):
-    subsets = [s]
-    def all_non_divisible(arr, k):
-        """
-        Iterate over a given subset of values and identify if all are non-divisible by a given integer.
-        :param arr: Array to iterate over
-        :param k: Divisor
-        :return: Boolean
-        """
-        all_non_divisible = True
-        for i in range(0, len(arr)-1):
-            for j in range(1, len(arr)):
-                if (arr[i]+arr[j]) % k == 0:
-                    all_non_divisible = False
-                    return all_non_divisible
-                else:
-                    pass
-        return all_non_divisible
-
-    max_len = None
-    while max_len is None:
-        for i in subsets:
-            if all_non_divisible(i, k):
-                max_len = len(i)
-            else:
-                pass
-        if max_len is None:
-        # If we haven't broken out of the loop, break each subset into smaller subsets
-            new_subs = []
-            for i in subsets:
-                for j in range(0, len(i)):
-                    new_arr = i.copy()
-                    new_arr.remove(new_arr[j])
-                    new_arr = sorted(new_arr)
-                    if new_arr not in new_subs:
-                        new_subs.append(new_arr)
-            subsets = new_subs
-        else:
-            break
-    print(max_len)
-    return max_len
-
-
-    # def go_deeper(subsets):
-    #     for i in subsets:
-
+    worst_fit = 0
+    for i in s:
+        s_copy = s.copy()
+        count = 0
+        for j in s_copy.remove(i):
+            if (i + j) % k == 0:
+                count += 1
+        if count > worst_fit:
+            worst_fit = count
+    if worst_fit == 0:
+        return len(s)
+    else:
+        nonDivisibleSubset(k,s.rem)
 
     # div_dict = {}
     # max_nondivisors = []
